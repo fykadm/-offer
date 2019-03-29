@@ -67,7 +67,7 @@ class Solution(object):
     def HasSubtree(self, pRoot1, pRoot2):
         result=False
 #result为了避免如下情况：
-![17](https://github.com/fykadm/-offer/blob/master/17%E5%9B%BE.PNG)
+![17](https://github.com/fykadm/-offer/blob/master/17%E5%9B%BE.PNG?raw=true)
 #虽然右边树2根节点与左边树1相同，但不是，所以要往后找。不加result会直接return False，而不是接着找树1的其他位置
 
 

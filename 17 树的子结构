@@ -1,0 +1,88 @@
+# -*- coding:utf-8 -*-
+class Node(object):
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+
+class Tree(object):
+    def __init__(self, root=None):
+        self.root = root
+
+    def add_node(self, val):  # 增加节点，基于广度遍历
+        node = Node(val)
+        if self.root == None:
+            self.root = node
+            return
+        queue = [self.root]
+        while queue:
+            cur = queue.pop(0)
+            if cur.left == None:
+                cur.left = node
+                return
+            else:
+                queue.append(cur.left)
+            if cur.right == None:
+                cur.right = node
+                return
+            else:
+                queue.append(cur.right)
+
+    def breadth_travel(self):  # 基于广度遍历
+        if self.root == None:
+            return
+        queue = [self.root]
+        while queue:
+            cur = queue.pop(0)
+            print(cur.val, end=' ')
+            if cur.left != None:
+                queue.append(cur.left)
+            if cur.right != None:
+                queue.append((cur.right))
+
+    def preorder(self, node):  # 先序遍历
+        if node == None:
+            return
+        print(node.val, end=' ')
+        self.preorder(node.left)
+        self.preorder(node.right)
+
+    def inorder(self, node):  # 中序
+        if node == None:
+            return
+        self.inorder(node.left)
+        print(node.val, end=' ')
+        self.inorder(node.right)
+
+    def postorder(self, node):  # 后序
+        if node == None:
+            return
+        self.postorder(node.left)
+        self.postorder(node.right)
+        print(node.val, end=' ')
+
+
+class Solution(object):
+    def HasSubtree(self, pRoot1, pRoot2):
+        result=False
+        if pRoot2 != None and pRoot1 != None:
+            if pRoot1.val == pRoot2.val:
+                result=self.IsSubtree(pRoot1,pRoot2)
+            if not result:                                      
+                result=self.IsSubtree(pRoot1.left,pRoot2)
+            if not result:
+                result=self.IsSubtree(pRoot1.right,pRoot2)
+        return result
+
+
+
+    def IsSubtree(self, Root1, Root2):
+        if Root2 == None:
+            return True
+        if Root1 == None:
+            return False
+        if Root1.val != Root2.val:
+            return False
+        else:
+            return self.IsSubtree(Root1.left, Root2.left) and self.IsSubtree(Root1.right, Root2.right)
